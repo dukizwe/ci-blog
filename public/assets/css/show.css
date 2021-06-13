@@ -1,0 +1,33 @@
+.aside {
+          position: sticky;
+          height: max-content;
+          top: 0;
+          padding-bottom: 15px;
+}
+.user-avatar {
+          border-radius: 50%;
+          width: 30px;
+          height: 30px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+}
+.user-name {
+          margin-left: 5px;
+}
+.reactions-bar {
+          height: 2px;
+          background: var(--bs-warning);
+}
+.reactions-bar .likes-loader {
+          height: 100%;
+          background: var(--bs-blue);
+          width: 50%;
+          transition: width .3s;
+}
+.likesCount-loader {
+          transition: width .3s;
+}
+.dislikesCount-loader {
+          transition: width .3s;
+}
