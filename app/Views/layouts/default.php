@@ -41,13 +41,24 @@
                                                             </li>
                                                   <?php endif ?>
                                                   <?php if(islogged()): ?>
-                                                            <li class="nav-item">
-                                                                      <a class="btn btn-primary" href="<?= route_to('logout') ?>">Admin</a>
-                                                            </li>
+                                                            <?php if(isAdmin()): ?>
+                                                                      <li class="nav-item">
+                                                                                <a class="btn btn-primary" href="<?= route_to('logout') ?>">Admin</a>
+                                                                      </li>
+                                                            <?php else: ?>
+                                                                      <li class="nav-item">
+                                                                                <a class="btn btn-secondary" href="<?= route_to('logout') ?>"><?= esc(user()->full_name) ?>    </a>
+                                                                      </li>
+                                                            <?php endif ?>
                                                   <?php else: ?>
-                                                            <li class="nav-item">
-                                                                      <a class="btn btn-outline-secondary" href="<?= route_to('login') ?>">Login</a>
-                                                            </li>
+                                                            <div class="d-flex">
+                                                                      <li class="nav-item">
+                                                                                <a class="btn btn-outline-secondary" href="<?= route_to('login') ?>">Login</a>
+                                                                      </li>
+                                                                      <li class="nav-item ml-2" style="margin-left: 5px;">
+                                                                                <a class="btn btn-outline-secondary" href="<?= route_to('register') ?>">Register</a>
+                                                                      </li>
+                                                            </div>
                                                   <?php endif ?>
                                         </ul>
                               </div>

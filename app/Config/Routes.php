@@ -46,8 +46,12 @@ $routes->group('posts', function(RouteCollection $routes) {
 $routes->get('tags', 'TagsController::index', ['as' => 'tags.root']);
 
 $routes->group('login', function(RouteCollection $routes) {
-          $routes->get('/', 'LoginController::index', ['as' => 'login']);
+          $routes->get('/', 'UserController::login', ['as' => 'login']);
           $routes->post('/', 'AuthController::login');
+});
+$routes->group('register', function(RouteCollection $routes) {
+          $routes->get('/', 'UserController::register', ['as' => 'register']);
+          $routes->post('/', 'AuthController::register');
 });
 $routes->get('logout', 'AuthController::logout', ['as' => 'logout']);
 
@@ -73,11 +77,11 @@ $routes->group('admin', ['filter' => 'isAdmin'], function(RouteCollection $route
           });
 });
 
-$routes->group('api/posts', function(RouteCollection $routes) {
+$routes->group('api/posts',['filter' => 'isLoggedIn'], function(RouteCollection $routes) {
           $routes->post('like', 'ReactionsController::like');
           $routes->post('dislike', 'ReactionsController::dislike');
 });
-$routes->post('api/comments',  'CommentController::create');
+$routes->post('api/comments',  'CommentController::create', ['filter' => 'isLoggedIn']);
 /*
  * --------------------------------------------------------------------
  * Additional Routing

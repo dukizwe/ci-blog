@@ -4,7 +4,7 @@
                     <div class="form-group">
                               <input type="text"
                                         name="title"
-                                        value="<?= $title ?? $post->title ?? '' ?>"
+                                        value="<?= esc($title ?? $post->title ?? '') ?>"  
                                         class="form-control <?= (isset($validation) && $validation->hasError('title')) ? 'is-invalid' : '' ?>"
                                         placeholder="Title">
                               <?php if(isset($validation) && $validation->hasError('title')): ?>
@@ -14,7 +14,7 @@
                     <div class="form-group mt-2">
                               <textarea name="body"
                                         placeholder="Body"
-                                        class="form-control <?= (isset($validation) && $validation->hasError('body')) ? 'is-invalid' : '' ?>"><?= $body ?? $post->body ?? '' ?></textarea>
+                                        class="form-control <?= (isset($validation) && $validation->hasError('body')) ? 'is-invalid' : '' ?>"><?= esc($body ?? $post->body ?? '') ?></textarea>
                               <?php if(isset($validation) && $validation->hasError('body')): ?>
                                         <div class="invalid-feedback"><?= $validation->getError('body') ?></div>
                               <?php endif ?>

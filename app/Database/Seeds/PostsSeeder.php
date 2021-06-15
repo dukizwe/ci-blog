@@ -11,7 +11,7 @@ class PostsSeeder extends Seeder
 	{
 		//
                     $data = [];
-                    for ($i=1 ; $i < 100; $i++) { 
+                    for ($i=1 ; $i <= 100; $i++) { 
                               $data[] = [
                                         'title' => static::faker()->text(50),
                                         'body' => static::faker()->text(5000)

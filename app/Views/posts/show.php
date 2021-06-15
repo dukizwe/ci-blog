@@ -72,12 +72,13 @@
                                                                       </a>
                                                             <?php endif ?><br>
                                                   </div>
+                                                  <div class="errors"></div>
                                         </div>
                                         <div class="comments mt-4">
                                                   <h6>Comments</h6>
                                                   <form class="form" data-postId="<?= $post->id ?>">
                                                             <div class="form-group">
-                                                                      <input type="text" class="form-control" id="name" placeholder="Full name">
+                                                                      <input value="<?= esc(user()->full_name ?? '') ?>" <?= user() ? 'disabled' : '' ?> type="text" class="form-control" id="name" placeholder="Full name">
                                                             </div>
                                                             <div class="form-group mt-2">
                                                                       <textarea id="body" class="form-control" placeholder="Content"></textarea>
@@ -101,7 +102,7 @@
                                                   </svg>
                                                                                                                         </div>
                                                                                                                         <div class="user-name mb-2">
-                                                                                                                                  <strong><?= esc($comment->name) ?></strong>
+                                                                                                                                  <strong><?= esc($comment->full_name) ?></strong>
                                                                                                                         </div>
                                                                                                               </div>
                                                                                                               <div class="date">

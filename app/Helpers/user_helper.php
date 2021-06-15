@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\AuthController;
 use Config\Services;
 
 function islogged():bool
@@ -10,5 +11,10 @@ function islogged():bool
 
 function isAdmin(): bool
 {
-          return islogged();
+          return user() && (int)user()->category_id === 1 && user()->category_name === 'admin';
+}
+
+function user()
+{
+          return AuthController::user();
 }

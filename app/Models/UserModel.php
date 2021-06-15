@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class CommentModel extends Model
+class UserModel extends Model
 {
 	protected $DBGroup              = 'default';
-	protected $table                = 'comments';
+	protected $table                = 'users';
 	protected $primaryKey           = 'id';
 	protected $useAutoIncrement     = true;
 	protected $insertID             = 0;
 	protected $returnType           = 'object';
 	protected $useSoftDeletes       = true;
 	protected $protectFields        = true;
-	protected $allowedFields        = ['user_id', 'body', 'post_id', 'created_at'];
+	protected $allowedFields        = ['category_id', 'full_name', 'email', 'password'];
 
 	// Dates
 	protected $useTimestamps        = true;

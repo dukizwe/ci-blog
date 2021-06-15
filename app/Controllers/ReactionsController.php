@@ -18,22 +18,23 @@ class ReactionsController extends BaseController
 
           public function __construct()
           {
+                    helper('user');
                     $this->postId = Services::request()->getVar('post_id');
                     $this->db = db_connect();
           }
           
           /**
-           * Vérifier qu'une reaction existe
+           * Vérifier qu'une reaction existe      
            *
            * @return ResultInterface|false
            */ 
           private function reactionExists()
           {
                     $reactionQuery = $this->db->prepare(function(BaseConnection $db) {
-                              $query = "SELECT * FROM reactions WHERE post_id = ? AND ip_address = ?";
+                              $query = "SELECT * FROM reactions WHERE post_id = ? AND user_id = ?";
                               return (new Query($db))->setQuery($query);
                     });
-                    $reaction = $reactionQuery->execute((int)$this->postId, $this->request->getIPAddress())->getRow();
+                    $reaction = $reactionQuery->execute((int)$this->postId, user()->id)->getRow();
                     return $reaction ?? false;
           }
           public function like()
@@ -80,9 +81,9 @@ class ReactionsController extends BaseController
           private function addReaction(int $vote)
           {
                     $this->db->prepare(function(BaseConnection $db) {
-                              $query = "INSERT INTO reactions(post_id, ip_address, vote, created_at, updated_at) VALUES(?, ?, ?, ?, ?)";
+                              $query = "INSERT INTO reactions(post_id, user_id, vote, created_at, updated_at) VALUES(?, ?, ?, ?, ?)";
                               return (new Query($db))->setQuery($query);
-                    })->execute((int)$this->postId, $this->request->getIPAddress(), $vote, date('Y-m-d H:i:s'), date('Y-m-d H:i:s'))->getRowArray();
+                    })->execute((int)$this->postId, user()->id, $vote, date('Y-m-d H:i:s'), date('Y-m-d H:i:s'))->getRowArray();
                     $reactions = array_merge(['like' => true], $this->reactionsCount());
                     return $this->response->setJSON(compact('reactions'));
           }

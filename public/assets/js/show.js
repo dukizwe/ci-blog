@@ -17,13 +17,16 @@ $(function() {
                                         'X-Requested-With': 'XMLHttpRequest'
                               },
                               success: function(data) {
+                                        if(data.errors) {
+                                                  return $('.reactions .errors').html(`<div class='alert alert-danger mt-2'>${data.errors.main}</div>`)
+                                        }
                                         updateCount(data.reactions.likeCount, data.reactions.dislikeCount)
                                         updateReactionsBar(data.reactions.likeCount, data.reactions.dislikeCount)
                                         if(data.reactions.like) {
                                                   $(this).html(likedBtn)
                                                   $('#dislike').html(dislikeBtn)
                                         } else {
-                                                  $(this).html(likeBtn)
+                                                  $(this).html(likeBtn)         
                                                   $('#dislike').html(dislikeBtn)
                                         }
                               }.bind($(this))
@@ -43,13 +46,16 @@ $(function() {
                                         'X-Requested-With': 'XMLHttpRequest'
                               },
                               success: function(data) {
+                                        if(data.errors) {
+                                                  return $('.reactions .errors').html(`<div class='alert alert-danger mt-2'>${data.errors.main}</div>`)
+                                        }
                                         updateCount(data.reactions.likeCount, data.reactions.dislikeCount)
                                         updateReactionsBar(data.reactions.likeCount, data.reactions.dislikeCount)
                                         if(data.reactions.like) {
                                                   $(this).html(dislikedBtn)
                                                   $('#like').html(likeBtn)
                                         } else {
-                                                  $(this).html(dislikedBtn)
+                                                  $(this).html(dislikeBtn)
                                                   $('#like').html(likeBtn)
                                         }
                               }.bind($(this))
@@ -80,18 +86,6 @@ $(function() {
                     body.removeClass('is-invalid')
                     $('form #body').next().remove()
                     var error = false
-                    if(name.val() == '') {
-                              name.addClass('is-invalid')
-                              const invalidFeedback = "<div class='invalid-feedback'>The name is required (2-20)</div>"
-                              name.parent().append(invalidFeedback)
-                              error = true
-                    }
-                    if(body.val() == '') {
-                              body.addClass('is-invalid')
-                              const invalidFeedback = "<div class='invalid-feedback'>The content is required (2-500)</div>"
-                              body.parent().append(invalidFeedback)
-                              error = true
-                    }
                     if(!error) {
                               $.ajax({
                                         url: 'http://localhost:8080/api/comments',
@@ -118,7 +112,7 @@ $(function() {
                                                                                                               </svg>
                                                                                           </div>
                                                                                           <div class="user-name mb-2">
-                                                                                                    <strong>${data.comment.name}</strong>
+                                                                                                    <strong>${data.comment.full_name}</strong>
                                                                                           </div>
                                                                                 </div>
                                                                                           <div class="date">
@@ -130,6 +124,7 @@ $(function() {
                                                                                 ${data.comment.body}
                                                                       </div>
                                                             </div>`
+                                                            $('form #body').val('')
                                                             $('.all-comments').prepend(newComment)
                                                             $('.all-comments small.no-comment').remove()
                                                   } else if(data.errors) {

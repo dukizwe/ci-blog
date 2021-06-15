@@ -230,7 +230,11 @@ class PostsController extends BaseController
           private function postComments(int $postId)
           {
                     $commentsQuery = $this->db->prepare(function(BaseConnection $db) {
-                              $query = "SELECT * FROM comments AS c WHERE c.post_id = ? ORDER BY created_at DESC ";
+                              $query = "SELECT c.*, u.full_name
+                                        FROM comments AS c
+                                        JOIN users AS u ON u.id = c.user_id
+                                        WHERE c.post_id = ?
+                                        ORDER BY c.created_at DESC ";
                               return (new Query($db))->setQuery($query);
                     });
                     return $commentsQuery->execute($postId)->getResultObject();

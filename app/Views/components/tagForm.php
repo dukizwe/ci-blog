@@ -4,7 +4,7 @@
                     <div class="form-group">
                               <input type="text"
                                         name="tag"
-                                        value="<?= $tagName ?? $tag->name ?? '' ?>"
+                                        value="<?= esc($tagName ?? $tag->name ?? '') ?>"
                                         class="form-control <?= (isset($validation) && $validation->hasError('tag')) ? 'is-invalid' : '' ?>"
                                         placeholder="Tag name">
                               <?php if(isset($validation) && $validation->hasError('tag')): ?>

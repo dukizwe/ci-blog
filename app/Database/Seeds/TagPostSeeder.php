@@ -11,11 +11,13 @@ class TagPostSeeder extends Seeder
 	{
 		//
                     $data = [];
-                    for ($i=1; $i <= 100; $i++) {
-                              $data[] = [
-                                        'post_id' => random_int(1, 50),
-                                        'tag_id' => random_int(1, 20)
-                              ];
+                    for ($i=1; $i <= 100; $i++) { 
+                              for ($j=1; $j <= random_int(3, 5) ; $j++) {
+                                        $data[] = [
+                                                  'post_id' => $i,
+                                                  'tag_id' => random_int(1, 20)
+                                        ];
+                              }
                     }
                     $db = db_connect();
                     $db->query('TRUNCATE TABLE tag_post');

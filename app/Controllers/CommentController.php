@@ -14,12 +14,12 @@ class CommentController extends BaseController
 
           public function __construct()
           {
+                    helper(['post', 'user']);
                     $this->db = db_connect();
           }
 
           public function create()
           {
-                    helper('post');
                     $postId = $this->request->getVar('post_id');
                     if(!$this->canIComment($postId)) {# verify if you can comment
                               $errors['main'] = 'Can not process the request, max of comments reached';
@@ -30,12 +30,15 @@ class CommentController extends BaseController
                               $name = $this->request->getVar('name');
                               $body = $this->request->getVar('body');
                               $createQuery = $this->db->prepare(function(BaseConnection $db) {
-                                        $query = "INSERT INTO comments(name, post_id, body, created_at, updated_at) VALUES(?, ?, ?, ?, ?)";
+                                        $query = "INSERT INTO comments(user_id, post_id, body, created_at, updated_at) VALUES(?, ?, ?, ?, ?)";
                                         return (new Query($db))->setQuery($query);
                               });
-                              $createQuery->execute($name, $postId, $body, date('Y-m-d H:i:s'), date('Y-m-d H:i:s'));
-                              $comment = $this->db->query("SELECT name, body, created_at FROM comments WHERE id = {$this->db->insertID()}")->getRow();
-                              $comment->name = esc($comment->name);
+                              $createQuery->execute(user()->id, $postId, $body, date('Y-m-d H:i:s'), date('Y-m-d H:i:s'));
+                              $comment = $this->db->query("SELECT u.full_name, c.body, c.created_at
+                                        FROM comments AS c
+                                        JOIN users AS u ON u.id = c.user_id
+                                        WHERE c.id = {$this->db->insertID()}")->getRow();
+                              $comment->full_name = esc($comment->full_name);
                               $comment->body = esc($comment->body);
                               $comment->created_at = postDate($comment->created_at);
                               return $this->response->setJSON(compact('comment'));
