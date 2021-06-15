@@ -1,5 +1,7 @@
 # CodeIgniter 4 Blog
 
+this branch has the authentification feature, a user need to be connected to perform some actions like like, dislike, post comment
+
 ## The home page
 
 - The home page display all posts with their realted tags
