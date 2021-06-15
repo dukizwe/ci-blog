@@ -19,7 +19,7 @@ class PostsSeeder extends Seeder
                     }
                     $postModel = new PostModel();
                     $db = db_connect();
-                    $db->query('TRUNCATE TABLE posts');
+                    // $db->query('TRUNCATE TABLE posts');
                     $postModel->insertBatch($data);
 	}
 }

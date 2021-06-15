@@ -19,7 +19,7 @@ class UsersSeeder extends Seeder
                               ];
                     }
                     $userModel = new UserModel();
-                    db_connect()->query('TRUNCATE TABLE users');
+                    // db_connect()->query('TRUNCATE TABLE users');
                     $userModel->insertBatch($data);
 	}
 }

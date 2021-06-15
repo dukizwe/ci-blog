@@ -17,7 +17,7 @@ class CategoriesSeeder extends Seeder
                               ];
                     }
                     $db = db_connect();
-                    $db->query("TRUNCATE TABLE tags");
+                    // $db->query("TRUNCATE TABLE tags");
                     $categoriesModel = new TagModel();
                     $categoriesModel->insertBatch($data);
 	}

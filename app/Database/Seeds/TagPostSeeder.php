@@ -20,7 +20,7 @@ class TagPostSeeder extends Seeder
                               }
                     }
                     $db = db_connect();
-                    $db->query('TRUNCATE TABLE tag_post');
+                    // $db->query('TRUNCATE TABLE tag_post');
                     $tagPostModel = new TagPost();
                     $tagPostModel->insertBatch($data);
 	}
