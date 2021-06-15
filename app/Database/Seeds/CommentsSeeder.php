@@ -21,7 +21,7 @@ class CommentsSeeder extends Seeder
                     }
                     $commentModel = new CommentModel();
                     $db = db_connect();
-                    $db->query('TRUNCATE TABLE comments');
+                    // $db->query('TRUNCATE TABLE comments');
                     $commentModel->insertBatch($data);
 	}
 }
